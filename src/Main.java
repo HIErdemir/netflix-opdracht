@@ -1,6 +1,10 @@
+import userInterface.MainFrame;
+
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Hello World");
+        MainFrame mainframe = new MainFrame();
+        mainframe.run();
+
     }
 }
