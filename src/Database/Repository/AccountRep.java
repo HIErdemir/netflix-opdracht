@@ -38,7 +38,7 @@ public class AccountRep {
                 int Accountid = resultSet.getInt("AccountID");
                 String Email = resultSet.getString("Email");
                 String AccountName = resultSet.getString("AccountName");
-                String AccountPassword = resultSet.getString("AccountPassword");String city = resultSet.getString("city");
+                String AccountPassword = resultSet.getString("AccountPassword");
 
                 account = new Account(Accountid, Email, AccountName, AccountPassword);
 
@@ -58,7 +58,7 @@ public class AccountRep {
         return account;
     }
 
-  /*public ArrayList<Account> getAll(){
+  public ArrayList<Account> getAll(){
         ArrayList<Account> accountList = new ArrayList<Account>();
 
       Connection connection = null;
@@ -77,10 +77,9 @@ public class AccountRep {
               int Accountid = resultSet.getInt("AccountID");
               String Email = resultSet.getString("Email");
               String AccountName = resultSet.getString("AccountName");
-              String AccountPassword = resultSet.getString("AccountPassword");String city = resultSet.getString("city");
+              String AccountPassword = resultSet.getString("AccountPassword");
 
-              account = new Account(Accountid, Email, AccountName, AccountPassword);
-
+              accountList.add(new Account(Accountid, Email, AccountName, AccountPassword));
           }
       } catch (Exception e) {
           e.printStackTrace();
@@ -94,12 +93,8 @@ public class AccountRep {
           }
       }
 
-      return account;
-
-
-
-  }*/
-
+      return accountList;
+  }
 
 
     public void insert(String AccountName,String Email, String AccountPassword) {
@@ -154,7 +149,33 @@ public class AccountRep {
         }
     }
 
+    public void update(String AccountName,String Email, String AccountPassword) {
+        Connection connection = null;
 
+        try {
+            // Create connection with database
+            connection = databaseConnector.getConnection();
+
+            PreparedStatement stmt = connection.prepareStatement("UPDATE Account SET Email = '?', AccountName = '?', AccountPassword)= '?'");
+
+            stmt.setString(1,Email);
+            stmt.setString(2,AccountName);
+            stmt.setString(3,AccountPassword);
+
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
 
 
