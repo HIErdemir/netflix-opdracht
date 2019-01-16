@@ -36,4 +36,7 @@ public class Serie {
     public ArrayList<Episode> getEpisodes() {
         return episodes;
     }
+
+    public void getAll() {}
+
 }
