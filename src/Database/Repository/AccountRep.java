@@ -156,7 +156,7 @@ public class AccountRep {
             // Create connection with database
             connection = databaseConnector.getConnection();
 
-            PreparedStatement stmt = connection.prepareStatement("UPDATE Account SET Email = '?', AccountName = '?', AccountPassword)= '?'");
+            PreparedStatement stmt = connection.prepareStatement("UPDATE Account SET Email = ?, AccountName = ?, AccountPassword)= ?");
 
             stmt.setString(1,Email);
             stmt.setString(2,AccountName);
@@ -180,11 +180,7 @@ public class AccountRep {
 
 
 
-
-
-
-
-
-
-
 }
+
+
+
