@@ -32,7 +32,8 @@ public class MainFrame implements Runnable{
         sideMenu = new SideMenu();
         footer = new Footer();
 
-  
+
+
     }
 
 
