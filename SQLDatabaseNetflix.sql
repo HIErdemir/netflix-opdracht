@@ -9,7 +9,7 @@ Email nvarchar(128) NOT NULL,
 AccountName nvarchar(128) NOT NULL,
 AccountPassword nvarchar(50) NOT NULL,
 
-PRIMARY KEY (AccountID),
+CONSTRAINT PK_AccID PRIMARY KEY (AccountID),
 );
 
 --Dumping data in table AccountID
@@ -33,33 +33,33 @@ VALUES('JanMontizaan@live.nl', 'Jantje', 'Jantjebreda' );
 --Structure for table netflix.Sunscription
 CREATE TABLE Subscription(
 SubID int IDENTITY(200,1) NOT NULL,
-NameSub nvarchar(128) NOT NULL,
+SubType nvarchar(128) NOT NULL,
 Adress nvarchar(80) NOT NULL,
 Housenumber int NOT NULL,
 Addition nvarchar(3) ,
 Residence nvarchar(50) NOT NULL,
 AccountID  int NOT NULL,
 
-PRIMARY KEY (SubID),
+CONSTRAINT PK_SubID PRIMARY KEY (SubID),
 CONSTRAINT FK_AccountIDSub FOREIGN KEY(AccountID) REFERENCES Account(AccountID) 
 ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 --Dumping data in table Subscription
-INSERT INTO Subscription(NameSub, Adress, Housenumber, Addition , Residence, AccountID)
-VALUES('Jan', 'Montlaan', '20' , 'a', 'Breda',5);
+INSERT INTO Subscription(SubType, Adress, Housenumber, Addition , Residence, AccountID)
+VALUES('Basic', 'Montlaan', '20' , 'a', 'Breda',5);
 
-INSERT INTO Subscription(NameSub, Adress, Housenumber, Residence, AccountID)
-VALUES('Johan', 'Smeerlaan', '54' , 'Breda',1);
+INSERT INTO Subscription(SubType, Adress, Housenumber, Residence, AccountID)
+VALUES('Basic', 'Smeerlaan', '54' , 'Breda',1);
 
-INSERT INTO Subscription(NameSub, Adress, Housenumber, Residence, AccountID)
-VALUES('Colinda', 'Dr.Struickenpleen', '123' , 'Amsterdam',2);
+INSERT INTO Subscription(SubType, Adress, Housenumber, Residence, AccountID)
+VALUES('Advanced', 'Dr.Struickenpleen', '123' , 'Amsterdam',2);
 
-INSERT INTO Subscription(NameSub, Adress, Housenumber, Residence, AccountID)
-VALUES('Ahmet', 'Wingerdstraat', '50' , 'Breda',3);
+INSERT INTO Subscription(SubType, Adress, Housenumber, Residence, AccountID)
+VALUES('Basic', 'Wingerdstraat', '50' , 'Breda',3);
 
-INSERT INTO Subscription(NameSub, Adress, Housenumber, Residence, AccountID)
-VALUES('Ruudje', 'Mopedikkelaan', '90' , 'Galder',4);
+INSERT INTO Subscription(SubType, Adress, Housenumber, Residence, AccountID)
+VALUES('Premium', 'Mopedikkelaan', '90' , 'Galder',4);
 
 --Structure for netflix.profile
 CREATE TABLE  NProfile(
@@ -68,7 +68,7 @@ ProfileID int IDENTITY(100,1) NOT NULL,
 Birthdate nvarchar(12) NOT NULL,
 AccountID int NOT NULL,
 
-PRIMARY KEY(ProfileID),
+CONSTRAINT PK_ProfileID PRIMARY KEY(ProfileID),
 CONSTRAINT FK_AccountProfile FOREIGN KEY(AccountID) REFERENCES Account(AccountID) 
 ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -139,7 +139,7 @@ ProgramID int NOT NULL,
 ProgramType char(1) NOT NULL,
 Duration int NOT NULL,
 
-PRIMARY KEY(ProgramID)
+CONSTRAINT PK_ProgramID PRIMARY KEY(ProgramID)
 );
 
 
@@ -151,7 +151,7 @@ ProfileID int NOT NULL,
 ProgramID int NOT NULL,
 PercentageWatched int ,
 
-PRIMARY KEY(ViewedProgramID),
+CONSTRAINT PK_ViewedProgramID PRIMARY KEY(ViewedProgramID),
 CONSTRAINT FK_ProfileViewed FOREIGN KEY(ProfileID) REFERENCES NProfile(ProfileID),
 CONSTRAINT FK_ProgramViewed FOREIGN KEY(ProgramID) REFERENCES Program(ProgramID) 
 );
@@ -165,7 +165,7 @@ Genre nvarchar(50) NOT NULL,
 MovieLanguage nvarchar(30) NOT NULL,
 ContentRating int NOT NULL,
 
-PRIMARY KEY(MovieID),
+CONSTRAINT PK_MovieID PRIMARY KEY(MovieID),
 CONSTRAINT FK_ProgramMovie FOREIGN KEY(ProgramID) REFERENCES Program(ProgramID) 
 ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -225,7 +225,7 @@ ShowLanguage nvarchar(30) NOT NULL,
 ContentRating int NOT NULL,
 TvShowID int  NOT NULL,
 
-PRIMARY KEY(TvShowID)
+CONSTRAINT PK_TvShowID PRIMARY KEY(TvShowID)
 );
 
 --Dumping data for Tvshow
@@ -250,7 +250,7 @@ ProgramID int NOT NULL,
 TvShowID int NOT NULL,
 EpisodeNr varchar(8) NOT NULL,
 
-PRIMARY KEY(EpisodeID),
+CONSTRAINT PK_EpisodeID PRIMARY KEY(EpisodeID),
 
 CONSTRAINT FK_ProgramEpisode FOREIGN KEY(ProgramID) REFERENCES Program(ProgramID) 
 ON DELETE CASCADE ON UPDATE CASCADE,
@@ -450,4 +450,3 @@ VALUES(25,114,1025,23);
 
 INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
 VALUES(26,114,1026,90);
-
