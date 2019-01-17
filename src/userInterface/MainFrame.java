@@ -32,6 +32,10 @@ public class MainFrame implements Runnable{
         sideMenu = new SideMenu();
         footer = new Footer();
 
+        container.add(sideMenu, BorderLayout.WEST);
+        container.add(footer, BorderLayout.SOUTH);
+
+
 
 
     }
