@@ -6,7 +6,8 @@ public class Profile {
 
     private int profileID;
     private String name;
-    private int age;
+    private String age;
+    private int AccountID;
     private ArrayList<ViewedProgram> viewedPrograms;
 
 
@@ -18,16 +19,25 @@ public class Profile {
 
     public void updateViewedProgram(ViewedProgram progam) {}
 
-    private int getProfileID() { return this.profileID;}
-
-    private String getName() { return this.name;}
-
-    private int getAge() {return this.age;}
-
     private ArrayList<ViewedProgram> getViewedProgams() {return this.viewedPrograms;}
 
-
+    public int getProfileID() {
+        return profileID;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public int getAccountID() {
+        return AccountID;
+    }
+
+}
 
 
 

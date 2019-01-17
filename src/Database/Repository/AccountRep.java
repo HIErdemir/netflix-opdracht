@@ -97,7 +97,7 @@ public class AccountRep {
         return accountList;
     }
 
-    public void insert(String AccountName, String Email, String AccountPassword) {
+    public void insert(Account account) {
         Connection connection = null;
 
         try {
@@ -106,9 +106,9 @@ public class AccountRep {
 
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO Account(Email, AccountName, AccountPassword) VALUES (?, ?,?)");
 
-            stmt.setString(1, Email);
-            stmt.setString(2, AccountName);
-            stmt.setString(3, AccountPassword);
+            stmt.setString(1, account.getEmail());
+            stmt.setString(2, account.getAccountName());
+            stmt.setString(3, account.getAccountPassword());
 
             stmt.executeQuery();
 
@@ -149,7 +149,7 @@ public class AccountRep {
         }
     }
 
-    public void update(int accountID, String AccountName, String Email, String AccountPassword) {
+    public void update(Account account) {
         Connection connection = null;
 
         try {
@@ -158,10 +158,10 @@ public class AccountRep {
 
             PreparedStatement stmt = connection.prepareStatement("UPDATE Account SET Email = ?, AccountName = ?, AccountPassword)= ? WHERE AccountID = ? ");
 
-            stmt.setString(1, Email);
-            stmt.setString(2, AccountName);
-            stmt.setString(3, AccountPassword);
-            stmt.setInt(3, accountID);
+            stmt.setString(1, account.getEmail());
+            stmt.setString(2, account.getAccountName());
+            stmt.setString(3, account.getAccountPassword());
+            stmt.setInt(4, account.getAccountID());
 
             stmt.executeQuery();
 
