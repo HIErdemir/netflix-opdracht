@@ -1,4 +1,8 @@
+DROP DATABASE IF EXISTS NetflixStatistix;
 
+CREATE DATABASE NetflixStatistix;
+
+USE NetflixStatistix;
 
 
 --Structure for table netflix.account
@@ -63,7 +67,7 @@ VALUES('Ruudje', 'Mopedikkelaan', '90' , 'Galder',4);
 --Structure for netflix.profile
 CREATE TABLE  NProfile(
 NameUser nvarchar(30) NOT NULL,
-ProfileID int IDENTITY(1000,1) NOT NULL,
+ProfileID int IDENTITY(100,1) NOT NULL,
 Birthdate nvarchar(12) NOT NULL,
 AccountID int NOT NULL,
 
@@ -138,31 +142,8 @@ ProgramID int NOT NULL,
 ProgramType char(1) NOT NULL,
 Duration int NOT NULL,
 
-
-
-
 PRIMARY KEY(ProgramID)
 );
-
---Dumping data for program
-INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)  --MOVIE
-VALUES('The Titanic',1 ,'M', 195 )
-
-INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)  --MOVIE 
-VALUES('The Raid',2 ,'M', 123 )
-
-INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)   --MOVIE
-VALUES('The Breadwinner',3 ,'M',120 )
-
-INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)   --MOVIE
-VALUES('Battle Royale',4 ,'M',150 ) 
-
-INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)    --MOVIE
-VALUES('Children of the corn',5 ,'M',100 )
-
-INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)   --MOVIE
-VALUES('Intouchables',6 ,'M',180 )
-
 
 
 
@@ -192,23 +173,47 @@ CONSTRAINT FK_ProgramMovie FOREIGN KEY(ProgramID) REFERENCES Program(ProgramID)
 ON DELETE CASCADE ON UPDATE CASCADE
 );
 
---Dumping data for Movies
-INSERT INTO Movie(MovieID, ProgramID, Genre, MovieLanguage, ContentRating)
+--Dumping data for Program/Movies
+--The Titanic
+INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)  --PROGRAM
+VALUES('The Titanic',1 ,'M', 195 )
+
+INSERT INTO Movie(MovieID, ProgramID, Genre, MovieLanguage, ContentRating)  --MOVIE
 VALUES(1,1,'Romance','English',6 );
 
-INSERT INTO Movie(MovieID, ProgramID, Genre, MovieLanguage, ContentRating)
+--The Raid
+INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)  --PROGRAM
+VALUES('The Raid',2 ,'M', 123 )
+
+INSERT INTO Movie(MovieID, ProgramID, Genre, MovieLanguage, ContentRating)  --MOVIE
 VALUES(2,2,'Horror','English',16 );
 
-INSERT INTO Movie(MovieID, ProgramID, Genre, MovieLanguage, ContentRating)
+--The Breadwinner
+INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)   --PROGRAM
+VALUES('The Breadwinner',3 ,'M',120 )
+
+INSERT INTO Movie(MovieID, ProgramID, Genre, MovieLanguage, ContentRating)  --MOVIE
 VALUES(3,3,'Comedy','English', 6 );
 
-INSERT INTO Movie(MovieID, ProgramID, Genre, MovieLanguage, ContentRating)
+--Battle Royale
+INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)   --PROGRAM
+VALUES('Battle Royale',4 ,'M',150 ) 
+
+INSERT INTO Movie(MovieID, ProgramID, Genre, MovieLanguage, ContentRating)  --MOVIE
 VALUES(4,4,'Action','English',12 );
 
-INSERT INTO Movie(MovieID, ProgramID, Genre, MovieLanguage, ContentRating)
+--Children of the corn
+INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)    --PROGRAM
+VALUES('Children of the corn',5 ,'M',100 )
+
+INSERT INTO Movie(MovieID, ProgramID, Genre, MovieLanguage, ContentRating)  --MOVIE
 VALUES(5,5,'Horror','English',16 );
 
-INSERT INTO Movie(MovieID, ProgramID, Genre, MovieLanguage, ContentRating)
+--Intouchables
+INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)   --PROGRAM
+VALUES('Intouchables',6 ,'M',180 )
+
+INSERT INTO Movie(MovieID, ProgramID, Genre, MovieLanguage, ContentRating)  --MOVIE
 VALUES(6,6,'Comedy','French',6 );
 
 
@@ -283,111 +288,169 @@ INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
 VALUES(2,2,1014,1,4);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)     --SHOW VI
-VALUES('For Walhalla',1016 ,'E',55 )
+VALUES('For Walhalla',1015 ,'E',55 )
 
 INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(1,1,1016,2,5);
+VALUES(1,1,1015,2,5);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)     --SHOW VI
-VALUES('The Sea',1017 ,'E',62 )
+VALUES('The Sea',1016 ,'E',62 )
 
 INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(1,2,1017,2,6);
+VALUES(1,2,1016,2,6);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)     --SHOW VI
-VALUES('The power',1018 ,'E',45 )
+VALUES('The power',1017 ,'E',45 )
 
 INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(2,1,1018,2,7);
+VALUES(2,1,1017,2,7);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)      --SHOW VI
-VALUES('Final battle',1019 ,'E',50 )
+VALUES('Final battle',1018 ,'E',50 )
 
 INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(2,2,1019,2,8);
+VALUES(2,2,1018,2,8);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)      --SHOW LP
-VALUES('Hasta la Vista',1020 ,'E',67 )
+VALUES('Hasta la Vista',1019 ,'E',67 )
 
 INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(1,1,1020,3,9);
+VALUES(1,1,1019,3,9);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)    --SHOW LP
-VALUES('Si',1021 ,'E',55 )
+VALUES('Si',1020 ,'E',55 )
 
 INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(1,2,1021,3,10);
+VALUES(1,2,1020,3,10);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)    --SHOW LP
-VALUES('Lopa de mayo',1022 ,'E',50 )
+VALUES('Lopa de mayo',1021 ,'E',50 )
 
 INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(2,1,1022,3,11);
+VALUES(2,1,1021,3,11);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)    --SHOW LP
-VALUES('Hasta mayana',1023 ,'E',60 )
+VALUES('Hasta mayana',1022 ,'E',60 )
 
 INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(2,2,1023,3,12);
+VALUES(2,2,1022,3,12);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)    --SHOW GTST
-VALUES('De liefde',1024 ,'E',40 )
+VALUES('De liefde',1023 ,'E',40 )
 
 INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(1,1,1024,4,13);
+VALUES(1,1,1023,4,13);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)      --SHOW GTST
-VALUES('Goede tijden ',1025 ,'E',50 )
+VALUES('Goede tijden ',1024 ,'E',50 )
 
 INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(1,2,1025,4,14);
+VALUES(1,2,1024,4,14);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)      --SHOW GTST
-VALUES('Het hart',1026 ,'E',30 )
+VALUES('Het hart',1025 ,'E',30 )
 
 INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(2,1,1026,4,15);
+VALUES(2,1,1025,4,15);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)      --SHOW GTST
-VALUES('Gebroken of niet?',1027 ,'E',45 )
+VALUES('Gebroken of niet?',1026 ,'E',45 )
 
 INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(2,2,1027,4,16);
+VALUES(2,2,1026,4,16);
 
 
 --Dumping data for ViewedProgram
 
---Profile1
+--Profile101
 INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
-VALUES(1,1,1,28);
+VALUES(1,101,1,28);
 
 INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
-VALUES(2,1,2,15);
+VALUES(2,101,2,15);
 
---Profile2
+--Profile102
 INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
-VALUES(3,2,3,2);
+VALUES(3,102,3,2);
 
---Profile4
+--Profile104
 INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
-VALUES(4,4,1011,98);
+VALUES(4,104,1011,98);
 
---Profile5
+--Profile105
 INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) --
-VALUES(5,5,1,1);
+VALUES(5,105,1,1);
+
+--profile106
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(6,106,1012,20);
+
+--profile107
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(7,107,6,90);
+
+--prrfile109
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(8,109,1015,98);
+
+--profile109
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(9,109,1016,92);
+
+--profile109
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(10,109,1017,99);
+
+--profile109
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(11,109,1018,5);
+
+--profile110
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(12,110,4,90);
 
 INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
-VALUES(6,4,1012,20);
+VALUES(13,110,2,50);
+
+--profile112
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(14,112,1019,43);
 
 INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
-VALUES(7,4,1012,20);
+VALUES(15,112,5,89);
+
+--profile113
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(16,113,1020,34);
+
+--profile114
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(17,114,1020,67);
 
 INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
-VALUES(8,4,1012,20);
+VALUES(18,114,1021,26);
 
 INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
-VALUES(9,4,1012,20);
+VALUES(19,114,1022,63);
 
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(20,114,1023,78);
 
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(21,114,1024,98);
 
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(22,114,1012,89);
+
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(23,114,1013,23);
+
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(24,114,1014,78);
+
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(25,114,1025,23);
+
+INSERT INTO ViewedProgram(ViewedProgramID,ProfileID,ProgramID,PercentageWatched) 
+VALUES(26,114,1026,90);
 
