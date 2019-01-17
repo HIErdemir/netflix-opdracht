@@ -13,8 +13,8 @@ public class AccountRep {
 
     private SqlConnect databaseConnector;
 
-    public AccountRep(SqlConnect databaseConnector) {
-        this.databaseConnector = databaseConnector;
+    public AccountRep() {
+        this.databaseConnector = new SqlConnect();
     }
 
     public Account getAccount(int AccountID) {
@@ -29,7 +29,7 @@ public class AccountRep {
 
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Account WHERE AccountID = ?");
             stmt.setInt(1,AccountID);
-            stmt.executeUpdate();
+            stmt.executeQuery();
 
 
             ResultSet resultSet = stmt.getResultSet();
@@ -69,7 +69,7 @@ public class AccountRep {
 
           PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Account");
 
-          stmt.executeUpdate();
+          stmt.executeQuery();
 
           ResultSet resultSet = stmt.getResultSet();
 
@@ -104,11 +104,20 @@ public class AccountRep {
             // Create connection with database
             connection = databaseConnector.getConnection();
 
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Account(Email, AccountName, AccountPassword) VALUES (?, ?, ?)");
+            PreparedStatement max = connection.prepareStatement("SELECT MAX(AccountID) FROM Account");
 
-            stmt.setString(1,Email);
-            stmt.setString(2,AccountName);
-            stmt.setString(3,AccountPassword);
+            max.executeUpdate();
+
+            ResultSet maxID = max.getResultSet();
+            int accountID = maxID.getInt("AccountID")+1;
+
+
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Account(accountID,Email, AccountName, AccountPassword) VALUES (?, ?, ?,?)");
+
+            stmt.setInt(1,accountID);
+            stmt.setString(2,Email);
+            stmt.setString(3,AccountName);
+            stmt.setString(4,AccountPassword);
 
             stmt.executeUpdate();
 
