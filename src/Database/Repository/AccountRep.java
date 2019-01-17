@@ -106,7 +106,7 @@ public class AccountRep {
 
             PreparedStatement max = connection.prepareStatement("SELECT MAX(AccountID) FROM Account");
 
-            max.executeUpdate();
+            max.executeQuery();
 
             ResultSet maxID = max.getResultSet();
             int accountID = maxID.getInt("AccountID")+1;
@@ -143,7 +143,7 @@ public class AccountRep {
 
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM Account WHERE AccountID = ?");
             stmt.setInt(1,AccountID);
-            stmt.executeUpdate();
+            stmt.executeQuery();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -171,7 +171,7 @@ public class AccountRep {
             stmt.setString(2,AccountName);
             stmt.setString(3,AccountPassword);
 
-            stmt.executeUpdate();
+            stmt.executeQuery();
 
         } catch (Exception e) {
             e.printStackTrace();
