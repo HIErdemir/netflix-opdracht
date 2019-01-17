@@ -14,7 +14,7 @@ public class MainFrame implements Runnable{
 
     public void run() {
         this.frame = new JFrame("Netflix Statistic");
-        frame.setPreferredSize(new Dimension(700, 500));
+        frame.setPreferredSize(new Dimension(1000, 500));
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -26,6 +26,7 @@ public class MainFrame implements Runnable{
     }
 
     private void createComponents(Container container) {
+        HomeScreen hm = new HomeScreen();
         container.setLayout(new BorderLayout());
 
         switchPanel = new SwitchPanel();
@@ -34,6 +35,7 @@ public class MainFrame implements Runnable{
 
         container.add(sideMenu, BorderLayout.WEST);
         container.add(footer, BorderLayout.SOUTH);
+        container.add(hm);
 
 
 

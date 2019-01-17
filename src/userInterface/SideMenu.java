@@ -19,11 +19,18 @@ public class SideMenu extends JPanel{
     }
 
     private void createComponents() {
+        Color cl = new Color(255,0,0);
         homeScreen = new JButton("Homescreen");
         accountOverview = new JButton("Account");
         profileOverview = new JButton("Profile");
         serieOverview = new JButton("Serie");
         movieOverview = new JButton("Movie");
+        homeScreen.setBackground(cl);
+        accountOverview.setBackground(cl);
+        profileOverview.setBackground(cl);
+        serieOverview.setBackground(cl);
+        movieOverview.setBackground(cl);
+
 
         homeScreen.addActionListener(new HomeScreen());
         accountOverview.addActionListener(new OverviewAccount());
