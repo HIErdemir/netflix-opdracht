@@ -36,7 +36,7 @@ VALUES('JanMontizaan@live.nl', 'Jantje', 'Jantjebreda' );
 --Structure for table netflix.Sunscription
 CREATE TABLE Subscription(
 SubID int IDENTITY(200,1) NOT NULL,
-NameSub nvarchar(128) NOT NULL,
+SubType nvarchar(128) NOT NULL,
 Adress nvarchar(80) NOT NULL,
 Housenumber int NOT NULL,
 Addition nvarchar(3) ,
@@ -49,20 +49,20 @@ ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 --Dumping data in table Subscription
-INSERT INTO Subscription(NameSub, Adress, Housenumber, Addition , Residence, AccountID)
-VALUES('Jan', 'Montlaan', '20' , 'a', 'Breda',5);
+INSERT INTO Subscription(SubType, Adress, Housenumber, Addition , Residence, AccountID)
+VALUES('Basic', 'Montlaan', '20' , 'a', 'Breda',5);
 
-INSERT INTO Subscription(NameSub, Adress, Housenumber, Residence, AccountID)
-VALUES('Johan', 'Smeerlaan', '54' , 'Breda',1);
+INSERT INTO Subscription(SubType, Adress, Housenumber, Residence, AccountID)
+VALUES('Basic', 'Smeerlaan', '54' , 'Breda',1);
 
-INSERT INTO Subscription(NameSub, Adress, Housenumber, Residence, AccountID)
-VALUES('Colinda', 'Dr.Struickenpleen', '123' , 'Amsterdam',2);
+INSERT INTO Subscription(SubType, Adress, Housenumber, Residence, AccountID)
+VALUES('Advanced', 'Dr.Struickenpleen', '123' , 'Amsterdam',2);
 
-INSERT INTO Subscription(NameSub, Adress, Housenumber, Residence, AccountID)
-VALUES('Ahmet', 'Wingerdstraat', '50' , 'Breda',3);
+INSERT INTO Subscription(SubType, Adress, Housenumber, Residence, AccountID)
+VALUES('Basic', 'Wingerdstraat', '50' , 'Breda',3);
 
-INSERT INTO Subscription(NameSub, Adress, Housenumber, Residence, AccountID)
-VALUES('Ruudje', 'Mopedikkelaan', '90' , 'Galder',4);
+INSERT INTO Subscription(SubType, Adress, Housenumber, Residence, AccountID)
+VALUES('Premium', 'Mopedikkelaan', '90' , 'Galder',4);
 
 --Structure for netflix.profile
 CREATE TABLE  NProfile(
