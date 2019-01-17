@@ -5,10 +5,13 @@ import java.awt.*;
 
 public class MainFrame implements Runnable{
 
-    private SwitchPanel switchPanel;
-    private SideMenu sideMenu;
+    private AccountButtons sideMenu;
     private Footer footer;
+    private OverviewAccount account;
+    private OverviewMovie movie;
     private JFrame frame;
+    private int panel;
+    private JPanel jpanel;
 
 
 
@@ -26,21 +29,30 @@ public class MainFrame implements Runnable{
     }
 
     private void createComponents(Container container) {
-        HomeScreen hm = new HomeScreen();
+        JTabbedPane tabbedPane = new JTabbedPane();
+        HomeScreen hs = new HomeScreen();
+        account = new OverviewAccount();
+
+        JComponent panel1 = hs.jpanel();
+        JComponent panel2 = account.jpanel();
+
+        tabbedPane.addTab("Home", null, panel1, "Go to home");
+        tabbedPane.addTab("Account", null, panel2,"Go to page account");
+
+
+
         container.setLayout(new BorderLayout());
 
-        switchPanel = new SwitchPanel();
-        sideMenu = new SideMenu();
+
         footer = new Footer();
 
-        container.add(sideMenu, BorderLayout.WEST);
         container.add(footer, BorderLayout.SOUTH);
-        container.add(hm);
-
-
+        container.add(tabbedPane, BorderLayout.WEST);
 
 
     }
+
+
 
 
 }

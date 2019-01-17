@@ -12,7 +12,7 @@ import java.io.IOException;
 public class HomeScreen extends JPanel implements ActionListener {
 
     private JFrame homeframe;
-    private SwitchPanel sw;
+
 
     public HomeScreen() {
         this.setLayout(new GridLayout());
@@ -29,6 +29,7 @@ public class HomeScreen extends JPanel implements ActionListener {
             System.out.println(a);
         }
         this.setBackground(new Color(255, 7, 56));
+        jpanel();
     }
 
     @Override

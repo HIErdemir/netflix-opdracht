@@ -1,8 +1,5 @@
-DROP DATABASE IF EXISTS NetflixStatistix;
-
 CREATE DATABASE NetflixStatistix;
 
-USE NetflixStatistix;
 
 
 --Structure for table netflix.account

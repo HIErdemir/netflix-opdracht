@@ -1,8 +1,9 @@
 package Logic;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
-public class Account {
+public class Account{
 
  private int AccountID;
  private String Email;
@@ -42,7 +43,6 @@ public class Account {
                 ", Email='" + Email + '\'' +
                 ", AccountName='" + AccountName + '\'' +
                 ", AccountPassword='" + AccountPassword + '\'' +
-                ", Profiles=" + Profiles +
                 '}';
     }
 }
