@@ -35,5 +35,14 @@ public class Account {
         return AccountPassword;
     }
 
-
+    @Override
+    public String toString() {
+        return "Account{" +
+                "AccountID=" + AccountID +
+                ", Email='" + Email + '\'' +
+                ", AccountName='" + AccountName + '\'' +
+                ", AccountPassword='" + AccountPassword + '\'' +
+                ", Profiles=" + Profiles +
+                '}';
+    }
 }
