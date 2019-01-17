@@ -9,18 +9,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class AccountRep {
+public class ProfileRep {
 
     private SqlConnect databaseConnector;
 
-    public AccountRep() {
-        this.databaseConnector = new SqlConnect();
+    public ProfileRep(SqlConnect databaseConnector) {
+        this.databaseConnector = databaseConnector;
     }
 
-
-    public Account getAccount(int AccountID) {
-        Account account = null;
-
+    public ArrayList<Profile> getAll(){
+        ArrayList<Profile> profileList = new ArrayList<Profile>();
 
         Connection connection = null;
 
@@ -28,59 +26,18 @@ public class AccountRep {
 
             connection = databaseConnector.getConnection();
 
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Account WHERE AccountID = ?");
-            stmt.setInt(1, AccountID);
-            stmt.executeQuery();
-
-
-            ResultSet resultSet = stmt.getResultSet();
-
-            while (resultSet.next()) {
-                int Accountid = resultSet.getInt("AccountID");
-                String Email = resultSet.getString("Email");
-                String AccountName = resultSet.getString("AccountName");
-                String AccountPassword = resultSet.getString("AccountPassword");
-
-                account = new Account(Accountid, Email, AccountName, AccountPassword);
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return account;
-    }
-
-    public ArrayList<Account> getAll() {
-        ArrayList<Account> accountList = new ArrayList<Account>();
-
-        Connection connection = null;
-
-        try {
-
-            connection = databaseConnector.getConnection();
-
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Account");
+            PreparedStatement stmt = connection.prepareStatement("SELECT P.NameUser, P.Birthdate, P.ProfileID\n FROM NProfile P ");
 
             stmt.executeQuery();
 
             ResultSet resultSet = stmt.getResultSet();
 
             while (resultSet.next()) {
-                int Accountid = resultSet.getInt("AccountID");
-                String Email = resultSet.getString("Email");
-                String AccountName = resultSet.getString("AccountName");
-                String AccountPassword = resultSet.getString("AccountPassword");
+                String NameUser = resultSet.getString("NameUser");
+                String Birthdate = resultSet.getString("Birthdate");
+                int profileID = resultSet.getInt("AccountID");
 
-                accountList.add(new Account(Accountid, Email, AccountName, AccountPassword));
+                profileList.add(new Profile(NameUser, Birthdate, profileID));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,21 +51,113 @@ public class AccountRep {
             }
         }
 
-        return accountList;
+        return profileList;
     }
 
-    public void insert(String AccountName, String Email, String AccountPassword) {
+    public ArrayList<Profile> getAccountProfiles(int accountID) {
+        ArrayList<Profile> profileList = new ArrayList<Profile>();
+
+        Connection connection = null;
+
+        try {
+
+            connection = databaseConnector.getConnection();
+
+            PreparedStatement stmt = connection.prepareStatement("SELECT P.NameUser, P.Birthdate, P.ProfileID\n " +
+                    "FROM NProfile P  where P.AccountID = ?");
+            stmt.setInt(1, accountID);
+            stmt.executeQuery();
+
+            ResultSet resultSet = stmt.getResultSet();
+
+            while (resultSet.next()) {
+                String NameUser = resultSet.getString("NameUser");
+                String Birthdate = resultSet.getString("Birthdate");
+                int profileID = resultSet.getInt("AccountID");
+
+                profileList.add(new Profile(NameUser, Birthdate, profileID));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return profileList;
+    }
+
+    public void insert(int AccountID, String AccountName, String Birthdate) {
         Connection connection = null;
 
         try {
             // Create connection with database
             connection = databaseConnector.getConnection();
 
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Account(Email, AccountName, AccountPassword) VALUES (?, ?,?)");
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO NProfile(NameUser,Birthdate,AccountID) VALUES (?, ?, ?)");
+
+
+            stmt.setString(1, AccountName);
+            stmt.setString(2, AccountName);
+            stmt.setInt(3, AccountID);
+
+            stmt.executeQuery();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void delete(int ProfileID) {
+        Connection connection = null;
+
+        try {
+            // Create connection with database
+            connection = databaseConnector.getConnection();
+
+            PreparedStatement stmt = connection.prepareStatement("DELETE FROM NProfile WHERE ProfileID = ?");
+            stmt.setInt(1, ProfileID);
+            stmt.executeQuery();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void update(int ProfileID, String AccountName, String Email, String AccountPassword) {
+        Connection connection = null;
+
+        try {
+            // Create connection with database
+            connection = databaseConnector.getConnection();
+
+            PreparedStatement stmt = connection.prepareStatement("UPDATE NProfile SET Email = ?, AccountName = ?, AccountPassword WHERE ProfileID = ?)= ?");
 
             stmt.setString(1, Email);
             stmt.setString(2, AccountName);
             stmt.setString(3, AccountPassword);
+            stmt.setInt(4,ProfileID);
 
             stmt.executeQuery();
 
@@ -124,62 +173,5 @@ public class AccountRep {
             }
         }
     }
-
-    public void delete(int AccountID) {
-        Connection connection = null;
-
-        try {
-            // Create connection with database
-            connection = databaseConnector.getConnection();
-
-            PreparedStatement stmt = connection.prepareStatement("DELETE FROM Account WHERE AccountID = ?");
-            stmt.setInt(1, AccountID);
-            stmt.executeQuery();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    public void update(int accountID, String AccountName, String Email, String AccountPassword) {
-        Connection connection = null;
-
-        try {
-            // Create connection with database
-            connection = databaseConnector.getConnection();
-
-            PreparedStatement stmt = connection.prepareStatement("UPDATE Account SET Email = ?, AccountName = ?, AccountPassword)= ? WHERE AccountID = ? ");
-
-            stmt.setString(1, Email);
-            stmt.setString(2, AccountName);
-            stmt.setString(3, AccountPassword);
-            stmt.setInt(3, accountID);
-
-            stmt.executeQuery();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
 
 }
-
-
-
