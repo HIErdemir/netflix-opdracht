@@ -1,5 +1,8 @@
+DROP DATABASE IF EXISTS NetflixStatistix;
+
 CREATE DATABASE NetflixStatistix;
 
+USE NetflixStatistix;
 
 
 --Structure for table netflix.account
@@ -33,7 +36,7 @@ VALUES('JanMontizaan@live.nl', 'Jantje', 'Jantjebreda' );
 --Structure for table netflix.Sunscription
 CREATE TABLE Subscription(
 SubID int IDENTITY(200,1) NOT NULL,
-SubType nvarchar(128) NOT NULL,
+SubType nvarchar(40) NOT NULL,
 Adress nvarchar(80) NOT NULL,
 Housenumber int NOT NULL,
 Addition nvarchar(3) ,
@@ -245,12 +248,12 @@ VALUES('Goede tijden Slechte tijden', 'Drama','Dutch',6, 4);
 --Structure for netflix.episode
 CREATE TABLE Episode(
 SeasonNr int NOT NULL,
-EpisodeID int NOT NULL,
 ProgramID int NOT NULL,
 TvShowID int NOT NULL,
-EpisodeNr varchar(8) NOT NULL,
+EpisodeNr int NOT NULL,
 
-CONSTRAINT PK_EpisodeID PRIMARY KEY(EpisodeID),
+CONSTRAINT PK_Episode PRIMARY KEY(EpisodeNr,SeasonNr,TvShowID),
+
 
 CONSTRAINT FK_ProgramEpisode FOREIGN KEY(ProgramID) REFERENCES Program(ProgramID) 
 ON DELETE CASCADE ON UPDATE CASCADE,
@@ -263,98 +266,98 @@ ON DELETE CASCADE ON UPDATE CASCADE
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)    --SHOW PB
 VALUES('Another day at the office',1011 ,'E',45 )
 
-INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(1,1,1011,1,1);
+INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID)
+VALUES(1,1,1011,1);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)    --SHOW PB
 VALUES('That looks delicious',1012 ,'E',42 )
 
-INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(1,2,1012,1,2);
+INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID)
+VALUES(1,2,1012,1);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)    --SHOW PB
 VALUES('Goosh',1013 ,'E',43 )
 
-INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(2,1,1013,1,3);
+INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID)
+VALUES(2,1,1013,1);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)    --SHOW PB
 VALUES('Wonderfull', 1014,'E',50 )
 
-INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(2,2,1014,1,4);
+INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID)
+VALUES(2,2,1014,1);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)     --SHOW VI
 VALUES('For Walhalla',1015 ,'E',55 )
 
-INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(1,1,1015,2,5);
+INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID)
+VALUES(1,1,1015,2);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)     --SHOW VI
 VALUES('The Sea',1016 ,'E',62 )
 
-INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(1,2,1016,2,6);
+INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID)
+VALUES(1,2,1016,2);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)     --SHOW VI
 VALUES('The power',1017 ,'E',45 )
 
-INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(2,1,1017,2,7);
+INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID)
+VALUES(2,1,1017,2);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)      --SHOW VI
 VALUES('Final battle',1018 ,'E',50 )
 
-INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(2,2,1018,2,8);
+INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID)
+VALUES(2,2,1018,2);
 
-INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)      --SHOW LP
+INSERT INTO Program(ProgramTitle, ProgramID, ProgramType,Duration)      --SHOW LP
 VALUES('Hasta la Vista',1019 ,'E',67 )
 
-INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(1,1,1019,3,9);
+INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID)
+VALUES(1,1,1019,3);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)    --SHOW LP
 VALUES('Si',1020 ,'E',55 )
 
-INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(1,2,1020,3,10);
+INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID)
+VALUES(1,2,1020,3);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)    --SHOW LP
 VALUES('Lopa de mayo',1021 ,'E',50 )
 
-INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(2,1,1021,3,11);
+INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID)
+VALUES(2,1,1021,3);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)    --SHOW LP
 VALUES('Hasta mayana',1022 ,'E',60 )
 
-INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(2,2,1022,3,12);
+INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID)
+VALUES(2,2,1022,3);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)    --SHOW GTST
 VALUES('De liefde',1023 ,'E',40 )
 
-INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(1,1,1023,4,13);
+INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID)
+VALUES(1,1,1023,4);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)      --SHOW GTST
 VALUES('Goede tijden ',1024 ,'E',50 )
 
-INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(1,2,1024,4,14);
+INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID)
+VALUES(1,2,1024,4);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)      --SHOW GTST
 VALUES('Het hart',1025 ,'E',30 )
 
-INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(2,1,1025,4,15);
+INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID)
+VALUES(2,1,1025,4);
 
 INSERT INTO Program(ProgramTitle, ProgramID, ProgramType, Duration)      --SHOW GTST
 VALUES('Gebroken of niet?',1026 ,'E',45 )
 
-INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID,EpisodeID)
-VALUES(2,2,1026,4,16);
+INSERT INTO Episode(SeasonNr,EpisodeNr,ProgramID,TvShowID)
+VALUES(2,2,1026,4);
 
 
 --Dumping data for ViewedProgram
