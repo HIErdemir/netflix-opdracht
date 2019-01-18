@@ -11,7 +11,14 @@ public class Serie {
     private int age;
     private ArrayList<Episode> episodes;
 
-    public Serie(int SerieID, String title, String genre, int age){}
+    public Serie(int serieID, String title, String genre, String language, int age) {
+        this.serieID = serieID;
+        this.title = title;
+        this.genre = genre;
+        this.language = language;
+        this.age = age;
+        episodes = new ArrayList<Episode>();
+    }
 
     public int getSerieID() {
         return this.serieID;
