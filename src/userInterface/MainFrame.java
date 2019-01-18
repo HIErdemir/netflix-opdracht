@@ -14,7 +14,7 @@ public class MainFrame implements Runnable{
     private JFrame frame;
 
 
-
+    /** Maakt de Frame**/
     public void run() {
         this.frame = new JFrame("Netflix Statistic");
         frame.setPreferredSize(new Dimension(1000, 500));
@@ -28,12 +28,13 @@ public class MainFrame implements Runnable{
 
     }
 
+    /** Maakt de CreateComponents*/
     private void createComponents(Container container) {
         JTabbedPane tabbedPane = new JTabbedPane();
         this.home = new HomeScreen();
         this.account = new OverviewAccount();
         this.profile = new OverviewProfile();
-        this.movie = new OverviewMovie(0);
+        this.movie = new OverviewMovie();
         this.serie = new OverviewSerie();
 
 

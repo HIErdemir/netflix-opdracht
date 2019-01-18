@@ -1,49 +1,52 @@
 package Userinterface;
 
-import Logic.Serie;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
 
 public class OverviewSerie extends JPanel {
-
-    private ArrayList<Serie> allSeries;
-
-
+    private Color cl;
 
     public OverviewSerie() {
-        allSeries = new ArrayList<Serie>();
+        cl = new Color(255,0,0);
     }
-
     public JPanel jpanel() {
         this.setLayout(new BorderLayout());
         this.setLayout(new GridLayout());
 
-        this.add(buttons());
+        JTabbedPane tabbedPane = new JTabbedPane();
+        JComponent panel1 = getAll();
+        JComponent panel2 = getSerie();
+        tabbedPane.addTab("Get all serie's", null, panel1, "Go to all serie's");
+        tabbedPane.addTab("Get serie", null, panel2, "Search for serie");
+
+
+        this.add(tabbedPane);
+
+
 
         return this;
     }
 
+    public JPanel getAll() {
+        JPanel getAll = new JPanel();
+        getAll.setBackground(cl);
+        JTextArea textArea = new JTextArea("Hier komen alle serie's");
 
-    public Box buttons() {
-        Box buttonBar = Box.createVerticalBox();
+        getAll.add(textArea);
 
-        JButton getAll = new JButton("Get all serie's");
-        JButton getSerie= new JButton("Get serie by account");
-        getAll.setMaximumSize(new Dimension(150, 100));
-        getAll.setMinimumSize(new Dimension(150, 100));
-        getSerie.setMaximumSize(new Dimension(150, 100));
-        getSerie.setMinimumSize(new Dimension(150, 100));
-
-
-        buttonBar.add(getAll);
-        buttonBar.add(getSerie);
-
-
-        return buttonBar;
-
+        return getAll;
     }
+
+    public JPanel getSerie() {
+        JPanel getSerie = new JPanel();
+        getSerie.setBackground(cl);
+        JTextArea textArea = new JTextArea("Hier komt een serie naar keuze, om tijdsduur te bekijken");
+
+        getSerie.add(textArea);
+
+        return getSerie;
+    }
+
 }
