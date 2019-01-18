@@ -5,13 +5,13 @@ public class Movie extends Program {
 
     private String genre;
     private String language;
-    private String ContentRating;
+    private int ContentRating;
 
-    public Movie(int programID, String programTitle, int duration, String genre, String language, String contentRating) {
+    public Movie(int programID, String programTitle, int duration, String genre, String language, int contentRating) {
         super(programID, programTitle, duration);
         this.genre = genre;
         this.language = language;
-        ContentRating = contentRating;
+        this.ContentRating = contentRating;
     }
 
     public String getGenre() {
@@ -22,7 +22,7 @@ public class Movie extends Program {
         return language;
     }
 
-    public String getContentRating() {
+    public int getContentRating() {
         return ContentRating;
     }
 
