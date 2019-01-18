@@ -13,8 +13,8 @@ public class ProfileRep {
 
     private SqlConnect databaseConnector;
 
-    public ProfileRep(SqlConnect databaseConnector) {
-        this.databaseConnector = databaseConnector;
+    public ProfileRep() {
+        this.databaseConnector = new SqlConnect();
     }
 
     public ArrayList<Profile> getAll(){
@@ -26,7 +26,7 @@ public class ProfileRep {
 
             connection = databaseConnector.getConnection();
 
-            PreparedStatement stmt = connection.prepareStatement("SELECT P.NameUser, P.Birthdate, P.ProfileID\n FROM NProfile P ");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM NProfile P ");
 
             stmt.executeQuery();
 
@@ -35,9 +35,10 @@ public class ProfileRep {
             while (resultSet.next()) {
                 String NameUser = resultSet.getString("NameUser");
                 String Birthdate = resultSet.getString("Birthdate");
-                int profileID = resultSet.getInt("AccountID");
+                int profileID = resultSet.getInt("ProfileID");
+                int accountID = resultSet.getInt("AccountID");
 
-                profileList.add(new Profile(NameUser, Birthdate, profileID));
+                profileList.add(new Profile(profileID, NameUser, Birthdate, accountID));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,7 +76,7 @@ public class ProfileRep {
                 String Birthdate = resultSet.getString("Birthdate");
                 int profileID = resultSet.getInt("AccountID");
 
-                profileList.add(new Profile(NameUser, Birthdate, profileID));
+                profileList.add(new Profile(profileID,NameUser, Birthdate,accountID));
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -178,6 +178,49 @@ public class AccountRep {
         }
     }
 
+    public ArrayList<Account> getAccountsOneProfile() {
+        ArrayList<Account> accountList = new ArrayList<Account>();
+
+        Connection connection = null;
+
+        try {
+
+            connection = databaseConnector.getConnection();
+
+            PreparedStatement stmt = connection.prepareStatement("SELECT A.AccountID, A.AccountName, A.AccountPassword, A.Email\n" +
+                    "FROM Account A JOIN NProfile P ON A.AccountID = P.AccountID\n" +
+                    "GROUP BY A.AccountID, A.AccountName, A.AccountPassword, A.Email\n" +
+                    "HAVING COUNT(A.AccountID) =  1");
+
+            stmt.executeQuery();
+
+            ResultSet resultSet = stmt.getResultSet();
+
+            while (resultSet.next()) {
+                int Accountid = resultSet.getInt("AccountID");
+                String Email = resultSet.getString("Email");
+                String AccountName = resultSet.getString("AccountName");
+                String AccountPassword = resultSet.getString("AccountPassword");
+
+                accountList.add(new Account(Accountid, Email, AccountName, AccountPassword));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return accountList;
+    }
+
+
+
 
 }
 
