@@ -1,5 +1,7 @@
 package Logic;
 
+
+import Database.Repository.ProfileRep;
 import javax.swing.*;
 import java.util.ArrayList;
 
@@ -44,5 +46,17 @@ public class Account{
                 ", AccountName='" + AccountName + '\'' +
                 ", AccountPassword='" + AccountPassword + '\'' +
                 '}';
+    }
+
+    public void getMyProfiles(){
+        ProfileRep searchProfiles = new ProfileRep();
+        Profiles = searchProfiles.getAccountProfiles(getAccountID());
+    }
+
+    public void addProfile(Profile profile){
+        ProfileRep Profile = new ProfileRep();
+        Profile.insert(profile);
+        Profiles.clear();
+        getMyProfiles();
     }
 }

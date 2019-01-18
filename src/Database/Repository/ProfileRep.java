@@ -13,8 +13,8 @@ public class ProfileRep {
 
     private SqlConnect databaseConnector;
 
-    public ProfileRep(SqlConnect databaseConnector) {
-        this.databaseConnector = databaseConnector;
+    public ProfileRep() {
+        this.databaseConnector = new SqlConnect();
     }
 
     public ArrayList<Profile> getAll(){
@@ -26,7 +26,7 @@ public class ProfileRep {
 
             connection = databaseConnector.getConnection();
 
-            PreparedStatement stmt = connection.prepareStatement("SELECT P.NameUser, P.Birthdate, P.ProfileID\n FROM NProfile P ");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM NProfile P ");
 
             stmt.executeQuery();
 
@@ -35,9 +35,10 @@ public class ProfileRep {
             while (resultSet.next()) {
                 String NameUser = resultSet.getString("NameUser");
                 String Birthdate = resultSet.getString("Birthdate");
-                int profileID = resultSet.getInt("AccountID");
+                int profileID = resultSet.getInt("ProfileID");
+                int accountID = resultSet.getInt("AccountID");
 
-                profileList.add(new Profile(NameUser, Birthdate, profileID));
+                profileList.add(new Profile(profileID, NameUser, Birthdate, accountID));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,7 +76,7 @@ public class ProfileRep {
                 String Birthdate = resultSet.getString("Birthdate");
                 int profileID = resultSet.getInt("AccountID");
 
-                profileList.add(new Profile(NameUser, Birthdate, profileID));
+                profileList.add(new Profile(profileID,NameUser, Birthdate,accountID));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,7 +93,7 @@ public class ProfileRep {
         return profileList;
     }
 
-    public void insert(int AccountID, String AccountName, String Birthdate) {
+    public void insert(Profile profile) {
         Connection connection = null;
 
         try {
@@ -102,9 +103,9 @@ public class ProfileRep {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO NProfile(NameUser,Birthdate,AccountID) VALUES (?, ?, ?)");
 
 
-            stmt.setString(1, AccountName);
-            stmt.setString(2, AccountName);
-            stmt.setInt(3, AccountID);
+            stmt.setString(1, profile.getName());
+            stmt.setString(2, profile.getAge());
+            stmt.setInt(3, profile.getAccountID());
 
             stmt.executeQuery();
 
@@ -145,19 +146,18 @@ public class ProfileRep {
         }
     }
 
-    public void update(int ProfileID, String AccountName, String Email, String AccountPassword) {
+    public void update(Profile profile) {
         Connection connection = null;
 
         try {
             // Create connection with database
             connection = databaseConnector.getConnection();
 
-            PreparedStatement stmt = connection.prepareStatement("UPDATE NProfile SET Email = ?, AccountName = ?, AccountPassword WHERE ProfileID = ?)= ?");
+            PreparedStatement stmt = connection.prepareStatement("UPDATE NProfile SET NameUser = ?, Birthdate = ? WHERE ProfileID = ?)");
 
-            stmt.setString(1, Email);
-            stmt.setString(2, AccountName);
-            stmt.setString(3, AccountPassword);
-            stmt.setInt(4,ProfileID);
+            stmt.setString(1, profile.getName());
+            stmt.setString(2, profile.getAge());
+            stmt.setInt(3, profile.getProfileID());
 
             stmt.executeQuery();
 
