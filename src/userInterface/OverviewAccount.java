@@ -1,23 +1,25 @@
-package Userinterface;
+package userInterface;
 
 import Database.Repository.AccountRep;
+import Logic.Account;
 
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class OverviewAccount extends JPanel {
 
     private MainFrame mf;
     private AccountRep ar;
     private Color cl;
-
+    private AccountRep accountRep;
 
     public OverviewAccount() {
         mf = new MainFrame();
         ar = new AccountRep();
         cl = new Color(255,0,0);
-
+        this.accountRep = new AccountRep();
     }
 
     /** Maakt de SubPanel**/
@@ -51,11 +53,14 @@ public class OverviewAccount extends JPanel {
     public JPanel getAll() {
         JPanel getAll = new JPanel();
         getAll.setBackground(cl);
+        ArrayList<Account> accountList = new ArrayList<Account>();
+        accountList = this.accountRep.getAll();
+        String[] columnNames = {"ID", "Name", "Email", "Password"};
 
-        JTextArea textArea = new JTextArea("Hier komen alle accounts");
-
-        getAll.add(textArea);
-
+        for(Account account : accountList){
+            JTextArea textArea = new JTextArea(account.getAccountID() + "\n" + account.getAccountName() + "\n" + account.getEmail() + "\n" + account.getAccountPassword());
+            getAll.add(textArea);
+        }
         return getAll;
     }
 

@@ -1,15 +1,17 @@
-package Userinterface;
+package userInterface;
+
+import userInterface.OverviewAccount;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame implements Runnable{
 
-    private Footer footer;
+    private Userinterface.Footer footer;
     private OverviewAccount account;
-    private OverviewProfile profile;
-    private OverviewMovie movie;
-    private OverviewSerie serie;
+    private Userinterface.OverviewProfile profile;
+    private Userinterface.OverviewMovie movie;
+    private Userinterface.OverviewSerie serie;
     private HomeScreen home;
     private JFrame frame;
 
@@ -33,9 +35,9 @@ public class MainFrame implements Runnable{
         JTabbedPane tabbedPane = new JTabbedPane();
         this.home = new HomeScreen();
         this.account = new OverviewAccount();
-        this.profile = new OverviewProfile();
-        this.movie = new OverviewMovie();
-        this.serie = new OverviewSerie();
+        this.profile = new Userinterface.OverviewProfile();
+        this.movie = new Userinterface.OverviewMovie();
+        this.serie = new Userinterface.OverviewSerie();
 
 
         JComponent panel1 = home.jpanel();
@@ -58,7 +60,7 @@ public class MainFrame implements Runnable{
         container.setLayout(new BorderLayout());
 
 
-        footer = new Footer();
+        footer = new Userinterface.Footer();
 
         container.add(footer, BorderLayout.SOUTH);
         container.add(tabbedPane, BorderLayout.WEST);

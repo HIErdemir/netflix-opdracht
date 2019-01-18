@@ -1,4 +1,4 @@
-package Userinterface;
+package userInterface;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -44,8 +44,8 @@ public class HomeScreen extends JPanel implements ActionListener {
 
             // Add the image and constraints to the Homescreen
             this.add(imageLabel);
+            System.out.println();
         } catch (IOException a) {
-            System.out.println(a);
         }
         jpanel();
     }

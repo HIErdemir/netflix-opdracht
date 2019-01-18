@@ -1,6 +1,7 @@
 import Database.Repository.AccountRep;
 import Logic.Account;
-import Userinterface.MainFrame;
+import userInterface.MainFrame;
+import userInterface.MainFrame;
 
 public class Main {
 
