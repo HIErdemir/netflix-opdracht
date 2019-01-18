@@ -24,16 +24,22 @@ public class Profile {
     public void addViewedProgram(ViewedProgram program){
         ViewedProgramRep viewed = new ViewedProgramRep();
         viewed.insert(program);
+        viewedPrograms.clear();
+        getViewedProgams();
     }
 
     public void deleteViewedProgram(int viewedID) {
         ViewedProgramRep viewed = new ViewedProgramRep();
         viewed.delete(viewedID);
+        viewedPrograms.clear();
+        getViewedProgams();
     }
 
     public void updateViewedProgram(ViewedProgram progam) {
         ViewedProgramRep viewed = new ViewedProgramRep();
         viewed.update(progam);
+        viewedPrograms.clear();
+        getViewedProgams();
     }
 
     private void  getViewedProgams() {

@@ -122,6 +122,36 @@ public class ProfileRep {
         }
     }
 
+
+    public void insert(int accountId,String name, String birthdate) {
+        Connection connection = null;
+
+        try {
+            // Create connection with database
+            connection = databaseConnector.getConnection();
+
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO NProfile(NameUser,Birthdate,AccountID) VALUES (?, ?, ?)");
+
+
+            stmt.setString(1, name);
+            stmt.setString(2, birthdate);
+            stmt.setInt(3, accountId);
+
+            stmt.executeQuery();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public void delete(int ProfileID) {
         Connection connection = null;
 

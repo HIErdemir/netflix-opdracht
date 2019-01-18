@@ -106,6 +106,55 @@ public class SerieRep {
         return EpisodeList;
     }
 
+    public ArrayList<Episode> getAvgEpisodePerSeriePerAccount(int SerieID, int accountID){
+        ArrayList<Episode> EpisodeList = new ArrayList<Episode>();
 
+        Connection connection = null;
+
+        try {
+
+            connection = databaseConnector.getConnection();
+
+            PreparedStatement stmt = connection.prepareStatement("SELECT P.ProgramID,E.TvShowID, E.SeasonNr, E.EpisodeNr, P.ProgramTitle, P.Duration, avg(VP.PercentageWatched) AS AvgWatched\n" +
+                    "FROM Episode E JOIN Program P ON E.ProgramID = P.ProgramID\n" +
+                    "     JOIN ViewedProgram VP ON P.ProgramID = VP.ProgramID \n" +
+                    "     JOIN NProfile NP ON  VP.ProfileID = NP.ProfileID\n" +
+                    "\t JOIN Account A ON  NP.AccountID = A.AccountID\n" +
+                    "WHERE E.TvShowID = ? AND A.AccountID = ?\n" +
+                    "GROUP BY  P.ProgramID,E.TvShowID, E.SeasonNr, E.EpisodeNr, P.ProgramTitle, P.Duration");
+
+            stmt.setInt(1,SerieID);
+            stmt.setInt(2,accountID);
+            stmt.executeQuery();
+
+            ResultSet resultSet = stmt.getResultSet();
+
+            while (resultSet.next()) {
+
+                int ProgramID = resultSet.getInt("P.ProgramID");
+                int TvShowID = resultSet.getInt("E.TvShowID");
+                int SeasonNr = resultSet.getInt("E.SeasonNr");
+                int EpisodeNr = resultSet.getInt("E.EpisodeNr");
+                int Duration = resultSet.getInt("P.Duration");
+                int AvgWatched = resultSet.getInt("AvgWatched");
+
+                String ProgramTitle = resultSet.getString("P.ProgramTitle");
+
+                EpisodeList.add(new Episode(ProgramID,ProgramTitle,Duration,EpisodeNr,SeasonNr,TvShowID,AvgWatched));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return EpisodeList;
+    }
 
 }

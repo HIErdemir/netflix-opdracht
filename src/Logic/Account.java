@@ -53,9 +53,30 @@ public class Account {
         Profiles = searchProfiles.getAccountProfiles(getAccountID());
     }
 
+    public void addProfile(String name, String birdtdate){
+        ProfileRep Profile = new ProfileRep();
+        Profile.insert(AccountID,name, birdtdate);
+        Profiles.clear();
+        getMyProfiles();
+    }
+
     public void addProfile(Profile profile){
         ProfileRep Profile = new ProfileRep();
         Profile.insert(profile);
+        Profiles.clear();
+        getMyProfiles();
+    }
+
+    public void deleteProfile(int profileID){
+        ProfileRep Profile = new ProfileRep();
+        Profile.delete(profileID);
+        Profiles.clear();
+        getMyProfiles();
+    }
+
+    public void updateProfile(Profile profile){
+        ProfileRep Profile = new ProfileRep();
+        Profile.update(profile);
         Profiles.clear();
         getMyProfiles();
     }
