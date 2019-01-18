@@ -5,13 +5,13 @@ import java.awt.*;
 
 public class MainFrame implements Runnable{
 
-    private AccountButtons sideMenu;
     private Footer footer;
     private OverviewAccount account;
+    private OverviewProfile profile;
     private OverviewMovie movie;
+    private OverviewSerie serie;
+    private HomeScreen home;
     private JFrame frame;
-    private int panel;
-    private JPanel jpanel;
 
 
 
@@ -30,14 +30,27 @@ public class MainFrame implements Runnable{
 
     private void createComponents(Container container) {
         JTabbedPane tabbedPane = new JTabbedPane();
-        HomeScreen hs = new HomeScreen();
-        account = new OverviewAccount();
+        this.home = new HomeScreen();
+        this.account = new OverviewAccount();
+        this.profile = new OverviewProfile();
+        this.movie = new OverviewMovie(0);
+        this.serie = new OverviewSerie();
 
-        JComponent panel1 = hs.jpanel();
+
+        JComponent panel1 = home.jpanel();
         JComponent panel2 = account.jpanel();
+        JComponent panel3 = profile.jpanel();
+        JComponent panel4 = movie.jpanel();
+        JComponent panel5 = serie.jpanel();
+
+
 
         tabbedPane.addTab("Home", null, panel1, "Go to home");
         tabbedPane.addTab("Account", null, panel2,"Go to page account");
+        tabbedPane.addTab("Profile", null, panel3,"Go to page profile");
+        tabbedPane.addTab("Movie", null, panel4,"Go to page movie");
+        tabbedPane.addTab("Serie", null, panel5,"Go to page serie");
+
 
 
 
