@@ -97,31 +97,100 @@ public class OverviewAccount extends JPanel {
     }
 
     public JPanel inputAccount() {
-        JPanel inputAccount = new JPanel();
+        final JPanel inputAccount = new JPanel();
         inputAccount.setBackground(cl);
 
+        JTextArea Email = new JTextArea("Email: ");
+        final JTextField inputEmail = new JTextField(10);
+        JTextArea Name = new JTextArea("AccountName: ");
+        final JTextField inputAccountName = new JTextField(10);
+        JTextArea Password = new JTextArea("Password: ");
+        final JTextField inputPassword = new JTextField(10);
+        inputAccount.add(Email);
+        inputAccount.add(inputEmail);
+        inputAccount.add(Name);
+        inputAccount.add(inputAccountName);
+        inputAccount.add(Password);
+        inputAccount.add(inputPassword);
 
 
 
+            inputPassword.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                   String Email = inputEmail.getText();
+                    String Name = inputAccountName.getText();
+                    String password = inputPassword.getText();
 
+                    if(!Email.isEmpty() && !Name.isEmpty() && !password.isEmpty()) {
+                        ar.insert(Email, Name, password);
+                        inputEmail.setText("");
+                        inputAccountName.setText("");
+                        inputPassword.setText("");
+                        JTextArea ta = new JTextArea("Restart program, so the account is add in" +
+                                "the overviews");
+
+                        inputAccount.add(ta);
+                        SwingUtilities.updateComponentTreeUI(tabs);
+                }
+            }
+        });
 
         return inputAccount;
 
     }
 
     public JPanel updateAccount() {
-        JPanel updateAccount = new JPanel();
+        final JPanel updateAccount = new JPanel();
         updateAccount.setBackground(cl);
         JTextArea textArea = new JTextArea("Hier kan een gebruiker een account updaten");
 
-        updateAccount.add(textArea);
+        JTextArea ID = new JTextArea("ID: ");
+        final JTextField inputID = new JTextField(10);
+        JTextArea Email = new JTextArea("Email: ");
+        final JTextField inputEmail = new JTextField(10);
+        JTextArea Name = new JTextArea("AccountName: ");
+        final JTextField inputAccountName = new JTextField(10);
+        JTextArea Password = new JTextArea("Password: ");
+        final JTextField inputPassword = new JTextField(10);
+        updateAccount.add(ID);
+        updateAccount.add(inputID);
+        updateAccount.add(Email);
+        updateAccount.add(inputEmail);
+        updateAccount.add(Name);
+        updateAccount.add(inputAccountName);
+        updateAccount.add(Password);
+        updateAccount.add(inputPassword);
+
+        inputPassword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int accountid = Integer.parseInt(inputID.getText());
+                String Email = inputEmail.getText();
+                String Name = inputAccountName.getText();
+                String password = inputPassword.getText();
+
+                if(accountid > 0 & !Email.isEmpty() && !Name.isEmpty() && !password.isEmpty()) {
+                    ar.update(accountid, Email, Name, password);
+                    inputID.setText("");
+                    inputEmail.setText("");
+                    inputAccountName.setText("");
+                    inputPassword.setText("");
+                    JTextArea ta = new JTextArea("Restart program, so the update is in" +
+                            "the overviews");
+
+                    updateAccount.add(ta);
+                    SwingUtilities.updateComponentTreeUI(tabs);
+                }
+            }
+        });
 
         return updateAccount;
 
     }
 
     public JPanel deleteAccount() {
-        JPanel deleteAccount = new JPanel();
+        final JPanel deleteAccount = new JPanel();
         deleteAccount.setBackground(cl);
         JTextArea textArea = new JTextArea("Type hier het Account ID:");
         final JTextField inputID = new JTextField(30);
@@ -132,6 +201,10 @@ public class OverviewAccount extends JPanel {
                                           int id = Integer.parseInt(inputID.getText());
                                           ar.delete(id);
                                           inputID.setText("");
+                                          JTextArea ta = new JTextArea("Restart program, so the account is delete in" +
+                                                  "the overviews");
+                                          deleteAccount.add(ta);
+                                          SwingUtilities.updateComponentTreeUI(tabs);
                                                                                 }
                                   });
 

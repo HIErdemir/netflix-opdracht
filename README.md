@@ -28,6 +28,7 @@ Dit project leek mij in het begin erg leuk om aan te werken. Toen we van start g
 Reflectie Lars
 --------------------------------
 
+Dit is een leuk project om aan te werken, maar wij hebben het helaas niet afgekregen. Een paar weken voor de vakantie konden wij beginnen aan de opdracht, maar toen zat ik helaas al vol met de deadlines voor verschillende verslagen en het leren voor de tentamens. Daardoor hadden wij pas de laatste week tijd om er aan te werken. Wij hebben sindsdien elke dag eraan gewerkt. De samenwerking verliep goed en wij hebben er samen alles aan gedaan om het zover mogelijk af te krijgen. Ik had voorraf een UML-diagram gemaakt, maar wij merkten terwijl je aan het programmeren ben er toch vaak van afwijkt. Ik heb ook de 'voorkant' van de app gemaakt en gewerkt aan de functionaliteiten.  
 
 Reflectie Halil
 --------------------------------
