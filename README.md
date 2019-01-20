@@ -8,7 +8,7 @@ Groepsleden
 --------------------------------
 Ahmet Özkan          ha.ozkan@student.avans.nl(2141164)
 
-Lars Siereveld               @student.avans.nl()
+Lars Siereveld       l.siereveld@student.avans.nl()
 
 Halil Erdemir                @student.avans.nl()
 
