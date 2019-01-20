@@ -2,6 +2,7 @@ package userInterface;
 
 import Database.Repository.AccountRep;
 import Logic.Account;
+import sun.tools.jar.Main;
 
 
 import javax.swing.*;
@@ -16,6 +17,8 @@ public class OverviewAccount extends JPanel {
     private AccountRep ar;
     private Color cl;
     private AccountRep accountRep;
+    private JComponent panel2;
+    private JTabbedPane tabs;
 
     public OverviewAccount() {
         mf = new userInterface.MainFrame();
@@ -29,22 +32,22 @@ public class OverviewAccount extends JPanel {
         this.setLayout(new BorderLayout());
         this.setLayout(new GridLayout());
 
-        JTabbedPane tabbedPane = new JTabbedPane();
+        tabs = new JTabbedPane();
         JComponent panel1 = getAll();
-        JComponent panel2 = getAccount();
+        this.panel2 = getAccount();
         JComponent panel3 = inputAccount();
         JComponent panel4 = updateAccount();
         JComponent panel5 = deleteAccount();
         JComponent panel6 = getAccountWithOneProfile();
-        tabbedPane.addTab("Get all acounts", null, panel1, "Go to all Account");
-        tabbedPane.addTab("Get account", null, panel2, "Search for account");
-        tabbedPane.addTab("Input account", null, panel3, "Input account");
-        tabbedPane.addTab("Update account", null, panel4, "Update account");
-        tabbedPane.addTab("Verwijder account", null, panel5, "Verwijder account");
-        tabbedPane.addTab("Get account with one profile", null, panel6, "Get account with one profile");
+        tabs.addTab("Get all acounts", null, panel1, "Go to all Account");
+        tabs.addTab("Get account", null, panel2, "Search for account");
+        tabs.addTab("Input account", null, panel3, "Input account");
+        tabs.addTab("Update account", null, panel4, "Update account");
+        tabs.addTab("Verwijder account", null, panel5, "Verwijder account");
+        tabs.addTab("Get account with one profile", null, panel6, "Get account with one profile");
 
 
-        this.add(tabbedPane);
+        this.add(tabs);
 
 
 
@@ -60,7 +63,8 @@ public class OverviewAccount extends JPanel {
         String[] columnNames = {"ID", "Name", "Email", "Password"};
 
         for(Account account : accountList){
-            JTextArea textArea = new JTextArea(account.getAccountID() + "\n" + account.getAccountName() + "\n" + account.getEmail() + "\n" + account.getAccountPassword());
+            JTextArea textArea = new JTextArea(account.getAccountID() + "\n" + account.getAccountName() + "\n" +
+                    account.getEmail() + "\n" + account.getAccountPassword());
             getAll.add(textArea);
         }
 
@@ -68,24 +72,35 @@ public class OverviewAccount extends JPanel {
     }
 
     public JPanel getAccount() {
-        JPanel getAccount = new JPanel();
+        final JPanel getAccount = new JPanel();
         getAccount.setBackground(cl);
         JTextArea Question = new JTextArea("Type here there accountID:   ");
-        JTextArea input = new JTextArea("");
+        final JTextField inputID = new JTextField(30);
+
+        inputID.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id = Integer.parseInt(inputID.getText());
+                JTextArea account = new JTextArea(ar.getAccount(id).toString());
+                getAccount.add(account);
+                inputID.setText("");
+                SwingUtilities.updateComponentTreeUI(tabs);
+            }
+        });
+
+
 
         getAccount.add(Question, BorderLayout.NORTH);
-        getAccount.add(input, BorderLayout.CENTER);
+        getAccount.add(inputID, BorderLayout.CENTER);
 
         return getAccount;
     }
 
     public JPanel inputAccount() {
         JPanel inputAccount = new JPanel();
-
-
-
-
         inputAccount.setBackground(cl);
+
+
 
 
 
@@ -117,11 +132,10 @@ public class OverviewAccount extends JPanel {
                                           int id = Integer.parseInt(inputID.getText());
                                           ar.delete(id);
                                           inputID.setText("");
-                                          getAll();
-                                      }
+                                                                                }
                                   });
 
-                deleteAccount.add(textArea);
+        deleteAccount.add(textArea);
         deleteAccount.add(inputID);
 
         return deleteAccount;
@@ -130,9 +144,16 @@ public class OverviewAccount extends JPanel {
     public JPanel getAccountWithOneProfile() {
         JPanel accountWithOneProfile = new JPanel();
         accountWithOneProfile.setBackground(cl);
-        JTextArea textArea = new JTextArea("Hier kan een gebruiker een de accounts zien die maar 1 profiel hebben");
 
-        accountWithOneProfile.add(textArea);
+        ArrayList<Account> accountOPList = new ArrayList<Account>();
+        accountOPList = this.accountRep.getAccountsOneProfile();
+        String[] columnNames = {"ID", "Name", "Email", "Password"};
+
+        for(Account account : accountOPList){
+            JTextArea textArea = new JTextArea(account.getAccountID() + "\n" + account.getAccountName() + "\n" +
+                    account.getEmail() + "\n" + account.getAccountPassword());
+            accountWithOneProfile.add(textArea);
+        }
 
         return accountWithOneProfile;
 

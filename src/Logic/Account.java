@@ -40,12 +40,8 @@ public class Account{
 
     @Override
     public String toString() {
-        return "Account{" +
-                "AccountID=" + AccountID +
-                ", Email='" + Email + '\'' +
-                ", AccountName='" + AccountName + '\'' +
-                ", AccountPassword='" + AccountPassword + '\'' +
-                '}';
+        return AccountID + "\n" + Email + "\n" + AccountName + "\n" + AccountPassword + "\n";
+             
     }
 
     public void getMyProfiles(){

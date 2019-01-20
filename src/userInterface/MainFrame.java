@@ -65,8 +65,10 @@ public class MainFrame implements Runnable{
         container.add(footer, BorderLayout.SOUTH);
         container.add(tabbedPane, BorderLayout.WEST);
 
-
     }
+
+
+
 
 
 
