@@ -157,6 +157,7 @@ PercentageWatched int ,
 CONSTRAINT PK_ViewedProgramID PRIMARY KEY(ViewedProgramID),
 CONSTRAINT FK_ProfileViewed FOREIGN KEY(ProfileID) REFERENCES NProfile(ProfileID),
 CONSTRAINT FK_ProgramViewed FOREIGN KEY(ProgramID) REFERENCES Program(ProgramID) 
+ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
