@@ -6,17 +6,19 @@ import Logic.Account;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class OverviewAccount extends JPanel {
 
-    private MainFrame mf;
+    private userInterface.MainFrame mf;
     private AccountRep ar;
     private Color cl;
     private AccountRep accountRep;
 
     public OverviewAccount() {
-        mf = new MainFrame();
+        mf = new userInterface.MainFrame();
         ar = new AccountRep();
         cl = new Color(255,0,0);
         this.accountRep = new AccountRep();
@@ -61,25 +63,32 @@ public class OverviewAccount extends JPanel {
             JTextArea textArea = new JTextArea(account.getAccountID() + "\n" + account.getAccountName() + "\n" + account.getEmail() + "\n" + account.getAccountPassword());
             getAll.add(textArea);
         }
+
         return getAll;
     }
 
     public JPanel getAccount() {
         JPanel getAccount = new JPanel();
         getAccount.setBackground(cl);
-        JTextArea textArea = new JTextArea("Hier komt een accout naar keuze");
+        JTextArea Question = new JTextArea("Type here there accountID:   ");
+        JTextArea input = new JTextArea("");
 
-        getAccount.add(textArea);
+        getAccount.add(Question, BorderLayout.NORTH);
+        getAccount.add(input, BorderLayout.CENTER);
 
         return getAccount;
     }
 
     public JPanel inputAccount() {
         JPanel inputAccount = new JPanel();
-        inputAccount.setBackground(cl);
-        JTextArea textArea = new JTextArea("Hier kan een gebruiker een account toevoegen");
 
-        inputAccount.add(textArea);
+
+
+
+        inputAccount.setBackground(cl);
+
+
+
 
         return inputAccount;
 
@@ -99,9 +108,21 @@ public class OverviewAccount extends JPanel {
     public JPanel deleteAccount() {
         JPanel deleteAccount = new JPanel();
         deleteAccount.setBackground(cl);
-        JTextArea textArea = new JTextArea("Hier kan een gebruiker een account verwijderen");
+        JTextArea textArea = new JTextArea("Type hier het Account ID:");
+        final JTextField inputID = new JTextField(30);
 
-        deleteAccount.add(textArea);
+        inputID.addActionListener(new ActionListener() {
+                                      @Override
+                                      public void actionPerformed(ActionEvent e) {
+                                          int id = Integer.parseInt(inputID.getText());
+                                          ar.delete(id);
+                                          inputID.setText("");
+                                          getAll();
+                                      }
+                                  });
+
+                deleteAccount.add(textArea);
+        deleteAccount.add(inputID);
 
         return deleteAccount;
     }

@@ -96,7 +96,6 @@ public class AccountRep {
 
         return accountList;
     }
-
     public void insert(Account account) {
         Connection connection = null;
 
@@ -125,7 +124,7 @@ public class AccountRep {
         }
     }
 
-    public void delete(int AccountID) {
+    public int delete(int AccountID) {
         Connection connection = null;
 
         try {
@@ -135,9 +134,12 @@ public class AccountRep {
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM Account WHERE AccountID = ?");
             stmt.setInt(1, AccountID);
             stmt.executeQuery();
+            return 1;
+
 
         } catch (Exception e) {
             e.printStackTrace();
+            return 0;
         } finally {
             if (connection != null) {
                 try {

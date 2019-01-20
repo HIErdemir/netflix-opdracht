@@ -12,7 +12,7 @@ public class MainFrame implements Runnable{
     private Userinterface.OverviewProfile profile;
     private Userinterface.OverviewMovie movie;
     private Userinterface.OverviewSerie serie;
-    private HomeScreen home;
+    private userInterface.HomeScreen home;
     private JFrame frame;
 
 
@@ -33,7 +33,7 @@ public class MainFrame implements Runnable{
     /** Maakt de CreateComponents*/
     private void createComponents(Container container) {
         JTabbedPane tabbedPane = new JTabbedPane();
-        this.home = new HomeScreen();
+        this.home = new userInterface.HomeScreen();
         this.account = new OverviewAccount();
         this.profile = new Userinterface.OverviewProfile();
         this.movie = new Userinterface.OverviewMovie();
