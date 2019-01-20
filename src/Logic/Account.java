@@ -41,7 +41,7 @@ public class Account{
     @Override
     public String toString() {
         return AccountID + "\n" + Email + "\n" + AccountName + "\n" + AccountPassword + "\n";
-             
+
     }
 
     public void getMyProfiles(){
@@ -49,9 +49,9 @@ public class Account{
         Profiles = searchProfiles.getAccountProfiles(getAccountID());
     }
 
-    public void addProfile(String name, String birdtdate){
+    public void addProfile(String name, String birthdate){
         ProfileRep Profile = new ProfileRep();
-        Profile.insert(AccountID,name, birdtdate);
+        Profile.insert(AccountID,name, birthdate);
         Profiles.clear();
         getMyProfiles();
     }

@@ -96,7 +96,7 @@ public class AccountRep {
 
         return accountList;
     }
-    public void insert(Account account) {
+    public void insert(String email, String name, String password) {
         Connection connection = null;
 
         try {
@@ -105,9 +105,9 @@ public class AccountRep {
 
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO Account(Email, AccountName, AccountPassword) VALUES (?, ?,?)");
 
-            stmt.setString(1, account.getEmail());
-            stmt.setString(2, account.getAccountName());
-            stmt.setString(3, account.getAccountPassword());
+            stmt.setString(1, email);
+            stmt.setString(2, name);
+            stmt.setString(3, password);
 
             stmt.executeQuery();
 
@@ -151,19 +151,19 @@ public class AccountRep {
         }
     }
 
-    public void update(Account account) {
+    public void update(int id, String email, String name, String password) {
         Connection connection = null;
 
         try {
             // Create connection with database
             connection = databaseConnector.getConnection();
 
-            PreparedStatement stmt = connection.prepareStatement("UPDATE Account SET Email = ?, AccountName = ?, AccountPassword)= ? WHERE AccountID = ? ");
+            PreparedStatement stmt = connection.prepareStatement("UPDATE Account SET Email = ?, AccountName = ?, AccountPassword= ? WHERE AccountID = ? ");
 
-            stmt.setString(1, account.getEmail());
-            stmt.setString(2, account.getAccountName());
-            stmt.setString(3, account.getAccountPassword());
-            stmt.setInt(4, account.getAccountID());
+            stmt.setString(1, email);
+            stmt.setString(2, name);
+            stmt.setString(3, password);
+            stmt.setInt(4, id);
 
             stmt.executeQuery();
 
