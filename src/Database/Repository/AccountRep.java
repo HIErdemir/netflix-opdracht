@@ -65,7 +65,7 @@ public class AccountRep {
         Connection connection = null;
 
         try {
-
+            accountList.clear();
             connection = databaseConnector.getConnection();
 
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Account");
